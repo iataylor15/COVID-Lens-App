@@ -48,13 +48,13 @@ struct SettingsView: View {
                             .clipShape(Circle())
                             .padding()
                         // user's name
-                        Text("Firstname Lastname")
+                        Text(viewModel.firstname + " " + viewModel.lastName)
                             .font(.title2)
                             .fontWeight(.heavy)
                             .foregroundColor(Color.black.opacity(0.8))
                             .padding(.bottom, 4)
                         // user's email
-                        Text("student@uncg.edu")
+                        Text(viewModel.email)
                             .font(.system(size: 18.0))
                             .fontWeight(.medium)
                             .foregroundColor(Color.black.opacity(0.5))
