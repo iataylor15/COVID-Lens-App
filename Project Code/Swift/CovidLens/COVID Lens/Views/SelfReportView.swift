@@ -19,10 +19,7 @@ struct SelfReportView: View {
     @State private var date = Date()
     @State private var hallIsExpanded: Bool = false
     @State private var selectedHall: String = ""
-    @State private var reportSubmitedAlert = false
-    
-    var affiliations: [String] = ["Student", "Faculty", "Staff", "Contractor"]
-    var resHall: [String] = ["Cone", "Grogan", "Guilford", "Mary Foust", "Moore/Strong", "North Spencer", "Phillips/Hawkins", "Ragsdale/Mendenhall", "Reynolds", "South Spencer", "Weil/Winfield", "Jefferson Suites", "Shaw", "Gray", "Hinshaw", "Bailey", "Cotten", "Coit", "Jamison", "Lee", "Haywood", "Union", "Highland", "Lexington", "McCormick", "Spring Garden Appartments", "Tower Village"].sorted()
+    @State private var description: String = ""
     
     var body: some View {
         NavigationView {
@@ -40,7 +37,7 @@ struct SelfReportView: View {
                         // dropdown menu for campus affiliation
                         DisclosureGroup("\(selectedAffiliation)", isExpanded: $affilIsExpanded) {
                             VStack {
-                                ForEach(affiliations) { affil in
+                                ForEach(viewModel.affiliations) { affil in
                                     Text("\(affil)")
                                         .font(.body)
                                         .padding(.all, 2)
@@ -76,7 +73,7 @@ struct SelfReportView: View {
                             .foregroundColor(.black)
                         DisclosureGroup("\(selectedHall)", isExpanded: $hallIsExpanded) {
                             VStack {
-                                ForEach(resHall) { hall in
+                                ForEach(viewModel.resHall) { hall in
                                     Text("\(hall)")
                                         .font(.body)
                                         .padding(.all, 2)
@@ -104,36 +101,53 @@ struct SelfReportView: View {
                             .labelsHidden()
                             .datePickerStyle(CompactDatePickerStyle())
                     }.padding(.all)
+                    
+                    // additional description textbox
+                    VStack {
+                        Text("Additional Info/Description")
+                            .font(.system(size: 18.0))
+                            .foregroundColor(.black)
+                        TextEditor(text: $description)
+                            .font(Font.system(size: 20))
+                            .cornerRadius(12)
+                    }.padding(.all)
                     .padding(.bottom)
                     
                     HStack {
                         PrimaryButton(label: "Submit a Positive Result") {
                             // connect to database
                             // send data to database
-                            viewModel.showSubmittedAlert = true
-                            print(self.selectedAffiliation)
-                            print(self.phoneNumber)
-                            print(self.selectedHall)
-                            print(self.date)
-                            self.reportSubmitedAlert.toggle()
+                            if(self.selectedAffiliation != "" && self.phoneNumber != "" && self.selectedHall != "") {
+                                viewModel.reportSubmitedAlert.toggle()
+                                print(self.selectedAffiliation)
+                                print(self.phoneNumber)
+                                print(self.selectedHall)
+                                print(self.date)
+                            } else {
+                                viewModel.invalidReportAlert.toggle()
+                            }
+                            
                             //viewModel.post()
-                        }.alert(isPresented: $viewModel.showSubmittedAlert){
-                            Alert(
-                                title: Text("Your report has been submitted"),
-                                message: Text("You will be notified once your report has been confirmed"),
-                                dismissButton: .default(Text("Close"))
-                            )
                         }
                     }
                 }
                 .padding(.vertical, -8)
                 Divider()
-            }.background(Color.white.ignoresSafeArea(.all, edges: .all))
+            }.background(Color.white.ignoresSafeArea(.all, edges: .all)).onTapGesture {
+                self.hideKeyboard()
+            }
             .navigationBarTitle("Self-Report", displayMode: .inline)
-            .alert(isPresented: $reportSubmitedAlert){
+            .alert(isPresented: $viewModel.reportSubmitedAlert){
                 Alert(
-                    title: Text("Your report has been submitted"),
+                    title: Text("Report Submitted"),
                     message: Text("You will be notified once your report has been confirmed"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .alert(isPresented: $viewModel.invalidReportAlert){
+                Alert(
+                    title: Text("Report Not Submitted"),
+                    message: Text("One or more required fields were left blank"),
                     dismissButton: .default(Text("OK"))
                 )
             }
