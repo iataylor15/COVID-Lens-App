@@ -140,11 +140,11 @@ struct SelfReportView: View {
                                 print(self.selectedHall)
                                 print(self.date)
                                 print(self.description)
+                                
+                                //viewModel.post
                             } else {
                                 viewModel.invalidReportAlert.toggle()
                             }
-                            
-                            //viewModel.post()
                         }
                     }
                 }
