@@ -27,12 +27,16 @@ struct SelfReportView: View {
                 
                 ScrollView {
                     // self-report instructions
-                    TabInfoView(icon: viewModel.icon, title: viewModel.title, info: viewModel.info)
+                    TabInfoView(icon: viewModel.icon, title: viewModel.title, info: viewModel.info, disclaimer: viewModel.disclaimer)
                     
                     VStack {
                         Text("University Affiliation")
                             .font(.system(size: 18.0))
                             .foregroundColor(.black)
+                            + Text(" *")
+                            .font(.system(size: 18.0))
+                            .foregroundColor(.red)
+                            .baselineOffset(1.0)
                         
                         // dropdown menu for campus affiliation
                         DisclosureGroup("\(selectedAffiliation)", isExpanded: $affilIsExpanded) {
@@ -61,6 +65,10 @@ struct SelfReportView: View {
                         Text("Contact Phone Number")
                             .font(.system(size: 18.0))
                             .foregroundColor(.black)
+                            + Text(" *")
+                            .font(.system(size: 18.0))
+                            .foregroundColor(.red)
+                            .baselineOffset(1.0)
                         TextField("Phone Number", text: $phoneNumber)
                             .font(Font.system(size: 20))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -71,6 +79,10 @@ struct SelfReportView: View {
                         Text("Residence Hall")
                             .font(.system(size: 18.0))
                             .foregroundColor(.black)
+                            + Text(" *")
+                            .font(.system(size: 18.0))
+                            .foregroundColor(.red)
+                            .baselineOffset(1.0)
                         DisclosureGroup("\(selectedHall)", isExpanded: $hallIsExpanded) {
                             VStack {
                                 ForEach(viewModel.resHall) { hall in
@@ -97,6 +109,10 @@ struct SelfReportView: View {
                         Text("Last Day On Campus")
                             .font(.system(size: 18.0))
                             .foregroundColor(.black)
+                            + Text(" *")
+                            .font(.system(size: 18.0))
+                            .foregroundColor(.red)
+                            .baselineOffset(1.0)
                         DatePicker("", selection: $date, displayedComponents: .date)
                             .labelsHidden()
                             .datePickerStyle(CompactDatePickerStyle())
@@ -123,6 +139,7 @@ struct SelfReportView: View {
                                 print(self.phoneNumber)
                                 print(self.selectedHall)
                                 print(self.date)
+                                print(self.description)
                             } else {
                                 viewModel.invalidReportAlert.toggle()
                             }
