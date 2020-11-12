@@ -48,13 +48,13 @@ struct SettingsView: View {
                             .clipShape(Circle())
                             .padding()
                         // user's name
-                        Text("Firstname Lastname")
+                        Text(viewModel.firstname + " " + viewModel.lastName)
                             .font(.title2)
                             .fontWeight(.heavy)
                             .foregroundColor(Color.black.opacity(0.8))
                             .padding(.bottom, 4)
                         // user's email
-                        Text("student@uncg.edu")
+                        Text(viewModel.email)
                             .font(.system(size: 18.0))
                             .fontWeight(.medium)
                             .foregroundColor(Color.black.opacity(0.5))
@@ -64,8 +64,28 @@ struct SettingsView: View {
                     VStack(alignment: .leading) {
                         Divider()
                         // account preferences button
-                        SettingsButton(iconName: "person.crop.square.fill", text: "Account Preferences") {
-                            // account preferences view
+                        SettingsButton(iconName: "person.crop.square.fill", text: "Allow Noftifications") {
+                            
+                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                                    if success {
+                                        print("All set!")
+                                    } else if let error = error {
+                                        print(error.localizedDescription)
+                                    }
+                                        }
+                            let content = UNMutableNotificationContent()
+                            content.title = "Self Report"
+                            content.subtitle = "Your Report Has Been Reviewed"
+                            content.sound = UNNotificationSound.default
+
+                            // show this notification five seconds from now
+                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+
+                            // choose a random identifier
+                            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+                            // add our notification request
+                            UNUserNotificationCenter.current().add(request)         
                         }
                         Divider()
                         // view report status button
