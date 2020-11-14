@@ -14,6 +14,7 @@ struct LoginView : View {
     @ObservedObject var info: AppDelegate
     @StateObject private var viewModel = LoginVM()
     @EnvironmentObject var userLoginState: AuthVM
+    private let signinSemaphore = DispatchSemaphore(value: 0)
 
     var title: some View {
         VStack(spacing: 15) {
@@ -47,9 +48,10 @@ struct LoginView : View {
     // sign in button
     var signInButton: some View {
         PrimaryButton(label: viewModel.signInButtonText) {
-            // action goes here
+            // email and pass
+            
+            
             userLoginState.login()
-            //authVM.login()
         }
 
     }
@@ -58,20 +60,36 @@ struct LoginView : View {
     var googleSignInButton: some View {
         PrimaryButton(label: viewModel.googleButtonText, icon: viewModel.googleButtonIcon) {
             // Google signin
-            GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
-            GIDSignIn.sharedInstance()?.signIn()
+            print("button clicked")
+            info.signIn()
+            print("after signIn function")
+            
+            
+            
+            //userLoginState.login()
+            
+//            if let _ = GIDSignIn.sharedInstance()?.currentUser {
+//                print("successfully signed in")
+//                signinSemaphore.signal()
+//                userLoginState.login()
+//            } else {
+//                print("not signed in")
+//            }
+            
 //            if(GIDSignIn.sharedInstance()?.currentUser != nil) {
 //                //loggedIn
 //                print("successfully signed in")
+//                signinSemaphore.signal()
+//                userLoginState.login()
 //            } else {
 //                //not loggedIn
+//
 //                print("not signed in")
-//            }
-//            if (viewModel.checkGoogleLogin()) {
-//                print("successful login")
 //            }
         }
     }
+        
+    
 
     // sign up button
     var signUpButton: some View {

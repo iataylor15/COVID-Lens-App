@@ -16,14 +16,14 @@ import Combine
 
 @main
 struct COVID_LensApp: App {
-    
+    static var no = notify()
     @StateObject var userLoginState = AuthVM()
+    
     
     // attach App Delegate to SwiftUI
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            
             if (userLoginState.isLoggedIn) {
                 TabContainterView()
                     .environmentObject(userLoginState)
@@ -45,6 +45,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, Observabl
     @Published var fullName:String?
     @Published var email:String?
     @Published var googleProfilePicURL:String?
+    static var notify: notify?
+    
+    @State var testUser = User()
+    @State var userData = UserData()
     //var apiKey = "AIzaSyBTOYwfO5V6sRC2z3QpxklUjizntrNnpd8"
     
     //seth apikey
@@ -86,6 +90,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, Observabl
     }
     // [END openurl_new]
     
+    func signIn() {
+        UserDefaults.standard.setValue(false, forKey: "loggedIn")
+        print("in signIn function")
+        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
+        GIDSignIn.sharedInstance()?.signIn()
+        print("google signin")
+        //signinSemaphore.wait()
+    }
+    
     // [START signin_handler]
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
@@ -101,16 +114,28 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, Observabl
             // [END_EXCLUDE]
             return
         } else {
-            sleep(10)
             // Successful sign in
             // Perform any operations on signed in user here.
-            self.userId = user.userID                  // For client-side use only!
-            self.idToken = user.authentication.idToken // Safe to send to the server
-            self.fullName = user.profile.name
-            self.email = user.profile.email
+            self.userId = user.userID ?? ""             // For client-side use only!
+            self.idToken = user.authentication.idToken ?? ""// Safe to send to the server
+            self.fullName = user.profile.name ?? ""
+            self.email = user.profile.email ?? ""
             self.googleProfilePicURL = user.profile.imageURL(withDimension: 150)?.absoluteString ?? ""
             
             print(self.fullName! + " successfully signed in (signin function)")
+            
+            testUser = User(name: self.fullName ?? "", email: self.email ?? "", googleID: self.idToken ?? "", profilePic: self.googleProfilePicURL ?? "", basicID: self.userId ?? "")
+        
+//            if (userData.loadUser(user: testUser)) {
+//                signinSemaphore.signal()
+//            }
+            
+            UserDefaults.standard.setValue(true, forKey: "loggedIn")
+            
+//            let credentials = userData.retreiveCredentials()
+//            if (credentials[UserData.USER_EMAIL] != nil && credentials[UserData.PASSWORD] != nil && credentials[UserData.GOOGLE_ID] != nil && credentials[UserData.USER_ID] != nil) {
+//
+//            }
             
             // [START_EXCLUDE]
             NotificationCenter.default.post(

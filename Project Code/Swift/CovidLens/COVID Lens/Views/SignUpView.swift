@@ -10,6 +10,8 @@ import SwiftUI
 struct SignupView: View {
     @Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
     @StateObject private var viewModel = SignupVM()
+    @StateObject var user: User?
+    @State var userData: UserData?
     
     var title: some View {
         VStack(spacing: 15) {
@@ -64,6 +66,7 @@ struct SignupView: View {
                 // if textfields not empty, & user email not in database, & passwords match
                 // if passwords are equal
                 if (viewModel.verifyFields()) {
+                    
                     // create user account
                     viewModel.tappedSignupButton()
                     self.presentationMode.wrappedValue.dismiss()
