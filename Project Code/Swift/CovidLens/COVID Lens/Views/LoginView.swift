@@ -5,11 +5,6 @@
 //  Created by Seth Goodwin on 10/8/20.
 //
 
-//
-//  LoginView.swift
-//  COVID Lens
-//
-
 import SwiftUI
 import GoogleSignIn
 
@@ -65,8 +60,17 @@ struct LoginView : View {
             // Google signin
             GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.first?.rootViewController
             GIDSignIn.sharedInstance()?.signIn()
+//            if(GIDSignIn.sharedInstance()?.currentUser != nil) {
+//                //loggedIn
+//                print("successfully signed in")
+//            } else {
+//                //not loggedIn
+//                print("not signed in")
+//            }
+//            if (viewModel.checkGoogleLogin()) {
+//                print("successful login")
+//            }
         }
-
     }
 
     // sign up button
@@ -106,11 +110,7 @@ struct LoginView : View {
                 self.hideKeyboard()
             }
         }
-
-
     }
-
-
 }
 
 // used to hide the keyboard

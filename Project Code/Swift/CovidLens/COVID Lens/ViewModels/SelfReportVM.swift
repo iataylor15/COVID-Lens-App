@@ -8,9 +8,12 @@
 import Foundation
 
 final class SelfReportVM: ObservableObject {
-    @Published var showSubmittedAlert: Bool = false
+    
+    @Published var showAlert = false
+    @Published var activeAlert: ActiveAlert = .valid
     @Published var reportSubmitedAlert = false
     @Published var invalidReportAlert = false
+    var twoWeeks = 14
     
     let title = "Share A Positive Result"
     let info = "If you test positive for COVID-19, experience COVID-19 symptoms, or have been identified as a close contact of someone who has tested positive for COVID-19, please fill out and submit the following form."
