@@ -31,15 +31,17 @@ class UserData {
      - Returns: true is returned if creation was successful otherwise false
      */
     func createUser(newUser: User) -> Bool {
+        UserDefaults.standard.setValue(false, forKey: UserData.SIGNED_IN)
         if UserDefaults.standard.bool(forKey: UserData.SIGNED_IN) == false {
             var uuid = createUUID()
-            if isValidEmail(newUser.getEmail()), isValidPassword(newUser.getPassword()) {
+            if isValidEmail(newUser.getEmail()) && isValidPassword(newUser.getPassword()) {
                 // attempt multiple times in case ID already existed for another user
                 var attempt = 5
                 repeat {
                     var parameters = [String: Any]()
                     var userID = uuid
                     var userWithID = newUser
+                    //giving a new user an id
                     userWithID.setBasicID(basicID: userID)
                     parameters["request"] = USER_CREATION
                     do {
@@ -49,9 +51,11 @@ class UserData {
                         parameters["userData"] = ""
                     }
                     parameters["userEmail"] = userWithID.getEmail()
+                    // if user has a google id
                     if userWithID.getGoogleID() != "" {
                         parameters["userPassword"] = userWithID.getGoogleID()
                     }else{
+                        //user does not have a google id
                         parameters["userPassword"] = userWithID.getPassword()
                     }
                     parameters["userPassword"] = userWithID.getPassword()
@@ -63,8 +67,7 @@ class UserData {
 
                     // waiting for response from server
                     submissionSemaphore.wait()
-
-                    if dataResponse!["status"] as? String == "SUCCESS"{
+                    if dataResponse != nil && dataResponse!["status"] as? String == "SUCCESS" {
                         // user is now logged in
                         UserDefaults.standard.setValue(userWithID.getLoggedIn(), forKey: UserData.SIGNED_IN)                        //storing data securely using keychain
                         return storeCredentials(user: userWithID)
@@ -104,7 +107,7 @@ class UserData {
             // waiting for response from server
             submissionSemaphore.wait()
 
-            if dataResponse!["status"] as? String == "SUCCESS"{
+            if dataResponse != nil && dataResponse!["status"] as? String == "SUCCESS" {
               //store credentials
                 return storeCredentials(user: user)
             }
@@ -179,8 +182,8 @@ class UserData {
             // waiting for response from server
             submissionSemaphore.wait()
 
-            if dataResponse!["status"] as? String == "SUCCESS"{
-                
+            if dataResponse != nil, dataResponse!["status"] as? String == "SUCCESS" {
+            
                 // simple storage of user in defaults after removing sensitive data
                 /*
                 var simpleUser = user
@@ -208,13 +211,15 @@ class UserData {
         var loggedOutUser =  user
         loggedOutUser.setLoggedIn(status: true)
         let response = save(user: loggedOutUser)
-        // user is now logged out
-        UserDefaults.standard.setValue(loggedOutUser.getLoggedIn(), forKey: UserData.SIGNED_IN)
+        // if save was successful, user will be logged out
+        if response{
+            UserDefaults.standard.setValue(loggedOutUser.getLoggedIn(), forKey: UserData.SIGNED_IN)
+        }
         return response && removeCredentials()
     }
 
     /**
-     This function is used for updated the apps data
+     This function is used for updating the apps data
      - Returns:true if update was successful and false if not
      */
     func DataRequest(user: User?) -> Bool {
@@ -261,8 +266,13 @@ class UserData {
      */
     func getResponse() -> [String:Any]{
         var dict: [String:Any] = [:]
-        for (key, value) in self.dataResponse{
-            dict[key] = value is NSNull ? "": value
+        if self.dataResponse != nil{
+            dump(dataResponse)
+            for (key, value) in self.dataResponse{
+                dict[key] = value is NSNull ? "": value
+            }
+        } else {
+            print("data is nil")
         }
         return dict
     }

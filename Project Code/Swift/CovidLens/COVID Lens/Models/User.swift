@@ -13,7 +13,7 @@ struct User: Codable {
     var profilePic: String
     var loggedIn: Bool
     var report: Report?
-    // initializer
+    // default initializer
     init() {
         self.name = ""
         self.email =  ""
@@ -22,7 +22,28 @@ struct User: Codable {
         self.profilePic = ""
         self.basicID = ""
         self.loggedIn = true
-       }
+    }
+    
+    init(name: String, email: String, password: String) {
+        self.name = name
+        self.email = email
+        self.password = password
+        self.basicID = ""
+        self.googleID = ""
+        self.profilePic = ""
+        self.loggedIn = false
+    }
+    
+    // paramaterized initializer for google signin
+    init(name: String, email: String, googleID: String, profilePic: String, basicID: String) {
+        self.name = name
+        self.email =  email
+        self.password = googleID
+        self.googleID =  googleID
+        self.profilePic = profilePic
+        self.basicID = basicID
+        self.loggedIn = true
+    }
 
     // set the user's name
     mutating func setName(name: String) {
@@ -72,7 +93,7 @@ struct User: Codable {
 
     // get user's password
     func getPassword() -> String{
-        return password
+        return password ?? ""
     }
 
     // get user's email

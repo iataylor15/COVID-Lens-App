@@ -4,7 +4,6 @@
 //
 //  Created by Isaac Taylor on 10/16/20.
 //
-
 import XCTest
 @testable import COVID_Lens
 class UserDataTests: XCTestCase {
@@ -22,6 +21,9 @@ class UserDataTests: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
     }
     
     /**
@@ -46,9 +48,9 @@ class UserDataTests: XCTestCase {
         user.setEmail(email: TEST_EMAIL)
         user.setPassword(password: TEST_PASSWORD)
         user.setBasicID(basicID: TEST_BASIC_ID)
-        _ = connection.DataRequest(user: user)
+        _ = connection.createUser(newUser: user)
         let actual = connection.getResponse() as? [String:String] ?? [:]
-        let expected = ["status": "FAILED", "data": ""]
+        let expected = ["status": "SUCCESS", "data": ""]
         XCTAssert(actual == expected)
     }
     
@@ -76,7 +78,7 @@ class UserDataTests: XCTestCase {
         user.setEmail(email: TEST_EMAIL)
         user.setPassword(password: TEST_PASSWORD)
         user.setBasicID(basicID: TEST_BASIC_ID)
-        _ = connection.save()
+        _ = connection.save(user: user)
         let actual = connection.getResponse() as? [String:String] ?? [:]
         let expected = ["status": "FAILED", "data": ""]
         XCTAssert(actual == expected)
