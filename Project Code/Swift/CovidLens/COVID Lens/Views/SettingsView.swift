@@ -4,7 +4,7 @@
 //
 //  Created by Seth Goodwin on 10/9/20.
 //
-
+import UserNotifications
 import SwiftUI
 import GoogleSignIn
 
@@ -67,25 +67,28 @@ struct SettingsView: View {
                         SettingsButton(iconName: "person.crop.square.fill", text: "Allow Noftifications") {
                             
                             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                                if success {
-                                    print("All set!")
-                                } else if let error = error {
-                                    print(error.localizedDescription)
-                                }
-                            }
+
+                                    if success {
+                                        print("All set!")
+                                    } else if let error = error {
+                                        print(error.localizedDescription)
+                                    }
+                                        }
+
                             let content = UNMutableNotificationContent()
-                            content.title = "Self Report"
-                            content.subtitle = "Your Report Has Been Reviewed"
+                            content.title = "Self Report Progress!"
+                            content.subtitle = "Your submittion is accepted!"
                             content.sound = UNNotificationSound.default
 
                             // show this notification five seconds from now
-                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 
                             // choose a random identifier
                             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
                             // add our notification request
-                            UNUserNotificationCenter.current().add(request)         
+                            UNUserNotificationCenter.current().add(request)
+
                         }
                         Divider()
                         // view report status button

@@ -5,7 +5,6 @@
 //  Created by Seth Goodwin on 10/7/20.
 //
 import UserNotifications
-
 import SwiftUI
 @available(iOS 14.0, *)
 
