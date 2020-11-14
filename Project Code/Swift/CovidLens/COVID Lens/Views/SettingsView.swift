@@ -67,12 +67,14 @@ struct SettingsView: View {
                         SettingsButton(iconName: "person.crop.square.fill", text: "Allow Noftifications") {
                             
                             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+
                                     if success {
                                         print("All set!")
                                     } else if let error = error {
                                         print(error.localizedDescription)
                                     }
                                         }
+
                             let content = UNMutableNotificationContent()
                             content.title = "Self Report Progress!"
                             content.subtitle = "Your submittion is accepted!"

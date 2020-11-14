@@ -20,7 +20,6 @@ struct COVID_LensApp: App {
     @StateObject var userLoginState = AuthVM()
     
     // attach App Delegate to SwiftUI
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
@@ -32,14 +31,6 @@ struct COVID_LensApp: App {
                 LoginView(info: self.appDelegate)
                     .environmentObject(userLoginState)
             }
-            
-            //            if (authVM.isLoggedIn) {
-            //                TabContainterView()
-            //                    .environmentObject(authVM)
-            //            } else {
-            //                LoginView(info: self.appDelegate)
-            //                    .environmentObject(authVM)
-            //            }
         }
     }
     
@@ -48,8 +39,7 @@ struct COVID_LensApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, ObservableObject{
     
     var window: UIWindow?
-    
-    
+
     @Published var userId:String?
     @Published var idToken:String?
     @Published var fullName:String?
@@ -110,20 +100,25 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, Observabl
                 name: Notification.Name(rawValue: "ToggleAuthUINotification"), object: nil, userInfo: nil)
             // [END_EXCLUDE]
             return
+        } else {
+            sleep(10)
+            // Successful sign in
+            // Perform any operations on signed in user here.
+            self.userId = user.userID                  // For client-side use only!
+            self.idToken = user.authentication.idToken // Safe to send to the server
+            self.fullName = user.profile.name
+            self.email = user.profile.email
+            self.googleProfilePicURL = user.profile.imageURL(withDimension: 150)?.absoluteString ?? ""
+            
+            print(self.fullName! + " successfully signed in (signin function)")
+            
+            // [START_EXCLUDE]
+            NotificationCenter.default.post(
+                name: Notification.Name(rawValue: "ToggleAuthUINotification"),
+                object: nil,
+                userInfo: ["statusText": "Signed in user:\n\(fullName!)"])
+            // [END_EXCLUDE]
         }
-        // Perform any operations on signed in user here.
-        self.userId = user.userID                  // For client-side use only!
-        self.idToken = user.authentication.idToken // Safe to send to the server
-        self.fullName = user.profile.name
-        self.email = user.profile.email
-        self.googleProfilePicURL = user.profile.imageURL(withDimension: 150)?.absoluteString ?? ""
-        
-        // [START_EXCLUDE]
-        NotificationCenter.default.post(
-            name: Notification.Name(rawValue: "ToggleAuthUINotification"),
-            object: nil,
-            userInfo: ["statusText": "Signed in user:\n\(fullName!)"])
-        // [END_EXCLUDE]
     }
     // [END signin_handler]
     // [START disconnect_handler]

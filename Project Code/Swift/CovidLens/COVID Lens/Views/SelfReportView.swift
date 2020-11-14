@@ -20,6 +20,8 @@ struct SelfReportView: View {
     @State private var hallIsExpanded: Bool = false
     @State private var selectedHall: String = ""
     @State private var description: String = ""
+    @State var lastSubmittedDate: Date = Date()
+    @State var canSubmit: Bool?
     
     var body: some View {
         NavigationView {
@@ -113,7 +115,7 @@ struct SelfReportView: View {
                             .font(.system(size: 18.0))
                             .foregroundColor(.red)
                             .baselineOffset(1.0)
-                        DatePicker("", selection: $date, displayedComponents: .date)
+                        DatePicker("", selection: $date, in: ...Date(), displayedComponents: .date)
                             .labelsHidden()
                             .datePickerStyle(CompactDatePickerStyle())
                     }.padding(.all)
@@ -131,20 +133,38 @@ struct SelfReportView: View {
                     
                     HStack {
                         PrimaryButton(label: "Submit a Positive Result") {
-                            // connect to database
-                            // send data to database
-                            if(self.selectedAffiliation != "" && self.phoneNumber != "" && self.selectedHall != "") {
-                                viewModel.reportSubmitedAlert.toggle()
-                                print(self.selectedAffiliation)
-                                print(self.phoneNumber)
-                                print(self.selectedHall)
-                                print(self.date)
-                                print(self.description)
-                                
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "yyyy-MM-dd"
+                            let today = Date()
+                            var canSubmit = true
+                            
+                            // check if all required fields are filled out
+                            if(self.selectedAffiliation != "" && self.phoneNumber != "" && self.selectedHall != "" ) {
+                                // first time submitting a report
+                                if (UserDefaults.standard.string(forKey: "lastSubmittedDate") == nil) {
+                                    UserDefaults.standard.setValue(dateFormatter.string(from: today), forKey: "lastSubmittedDate")
+                                } else {
+                                    self.lastSubmittedDate = dateFormatter.date(from: UserDefaults.standard.string(forKey: "lastSubmittedDate")!)!
+                                    canSubmit = Calendar.current.dateComponents([.day], from: lastSubmittedDate, to: today).day! >= 14
+                                    
+                                    let daysLeft  = viewModel.twoWeeks - Calendar.current.dateComponents([.day], from: lastSubmittedDate, to: today).day!
+                                    
+                                    if (daysLeft == 0) {
+                                        UserDefaults.standard.setValue(nil, forKey: "lastSubmittedDate")
+                                    }
+                                }
+                                if (canSubmit) {
+                                    viewModel.activeAlert = .valid
+                                    // connect to database
+                                    // send data to database
+                                } else {
+                                    viewModel.activeAlert = .tooSoon
+                                }
                                 //viewModel.post
                             } else {
-                                viewModel.invalidReportAlert.toggle()
+                                viewModel.activeAlert = .invalid
                             }
+                            viewModel.showAlert.toggle()
                         }
                     }
                 }
@@ -154,22 +174,34 @@ struct SelfReportView: View {
                 self.hideKeyboard()
             }
             .navigationBarTitle("Self-Report", displayMode: .inline)
-            .alert(isPresented: $viewModel.reportSubmitedAlert){
-                Alert(
-                    title: Text("Report Submitted"),
-                    message: Text("You will be notified once your report has been confirmed"),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-            .alert(isPresented: $viewModel.invalidReportAlert){
-                Alert(
-                    title: Text("Report Not Submitted"),
-                    message: Text("One or more required fields were left blank"),
-                    dismissButton: .default(Text("OK"))
-                )
+            .alert(isPresented: $viewModel.showAlert) {
+                switch viewModel.activeAlert {
+                case .valid:
+                    return Alert(
+                        title: Text("Report Submitted"),
+                        message: Text("You will be notified once your report has been confirmed"),
+                        dismissButton: .default(Text("OK"))
+                    )
+                case .invalid:
+                    return Alert(
+                        title: Text("Report Not Submitted"),
+                        message: Text("Please ensure all required fields are filled out"),
+                        dismissButton: .default(Text("OK"))
+                    )
+                case .tooSoon:
+                    return Alert(
+                        title: Text("Report Not Submitted"),
+                        message: Text("Reports can only be submitted every 14 days"),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
             }
         }
     }
+}
+
+enum ActiveAlert {
+    case valid, invalid, tooSoon
 }
 
 extension String: Identifiable {
