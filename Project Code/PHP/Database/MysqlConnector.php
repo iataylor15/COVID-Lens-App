@@ -7,10 +7,10 @@
  */
 class MysqlConnector {
 
-    const SERVERNAME = "127.0.0.2";
-    const USERNAME = "covidlen_covidlens";
-    const PASSWORD = "EshUeJtRA";
-    const DBNAME = "covidlen_covidlens";
+    const SERVERNAME = "";
+    const USERNAME = "";
+    const PASSWORD = "";
+    const DBNAME = "";
 
     private $connection;
 
