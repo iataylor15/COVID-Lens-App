@@ -47,6 +47,5 @@ struct Report: Codable {
         try container.encode(confirmerID, forKey: .confirmerID)
         try container.encode(submitterID, forKey: .submitterID)
         try container.encode(reportID, forKey: .reportID)
-        
     }
 }

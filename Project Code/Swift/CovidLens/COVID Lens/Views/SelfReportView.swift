@@ -145,7 +145,7 @@ struct SelfReportView: View {
                                     UserDefaults.standard.setValue(dateFormatter.string(from: today), forKey: "lastSubmittedDate")
                                 } else {
                                     self.lastSubmittedDate = dateFormatter.date(from: UserDefaults.standard.string(forKey: "lastSubmittedDate")!)!
-                                    canSubmit = Calendar.current.dateComponents([.day], from: lastSubmittedDate, to: today).day! >= 14
+                                    canSubmit = Calendar.current.dateComponents([.day], from: lastSubmittedDate, to: today).day! >= viewModel.twoWeeks
                                     
                                     let daysLeft  = viewModel.twoWeeks - Calendar.current.dateComponents([.day], from: lastSubmittedDate, to: today).day!
                                     
@@ -153,14 +153,13 @@ struct SelfReportView: View {
                                         UserDefaults.standard.setValue(nil, forKey: "lastSubmittedDate")
                                     }
                                 }
+                                
                                 if (canSubmit) {
+                                    // database post report info
                                     viewModel.activeAlert = .valid
-                                    // connect to database
-                                    // send data to database
                                 } else {
                                     viewModel.activeAlert = .tooSoon
                                 }
-                                //viewModel.post
                             } else {
                                 viewModel.activeAlert = .invalid
                             }

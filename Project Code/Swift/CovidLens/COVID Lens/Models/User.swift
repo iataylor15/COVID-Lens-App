@@ -13,6 +13,7 @@ struct User: Codable {
     var profilePic: String
     var loggedIn: Bool
     var report: Report?
+    
     // default initializer
     init() {
         self.name = ""
@@ -126,7 +127,6 @@ struct User: Codable {
         case report
     }
     
-    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodkingKeys.self)
         try container.encode(name, forKey: .name)
@@ -137,5 +137,4 @@ struct User: Codable {
         try container.encode(basicID, forKey: .basicID)
         try container.encode(report, forKey: .report)
     }
-    
 }
