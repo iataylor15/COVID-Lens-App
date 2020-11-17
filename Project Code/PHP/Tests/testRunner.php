@@ -324,9 +324,6 @@ $expected = array (
                      'Total' => 4,
                    ),
                  );
-    //"map_data" => array(array("locationID" => "...", "residenceHall" => "Jefferson Suites", "caseCount" => 2,
-            //"latitude" => "...", "longitude" => "..."),
-        //array("Mendenhall Residence Hall" => 0))); //... all other locations
 
 $tester7->testScript($testData, $expected, "PythonScriptCallerAPI Data Analysis test");
     

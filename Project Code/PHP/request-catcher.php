@@ -7,7 +7,6 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
 
-
 if (isset($_POST['request'])) {
     $request = $_POST['request'];
 } else {
@@ -18,23 +17,16 @@ if (isset($_POST['request'])) {
 $isUser = false;
 $isAdmin = false;
 
-//$googleUser = false;
-//$authenticator = new GoogleAuthenticator();
-//if ($authenticator->verify($_POST['googleID'] ?? '')) {
-//    $googleUser = true;
-//}
-if ($request == Requests::userCreationRequest() ||
-        $request == Requests::userSignInRequest() ||
+if ($request == Requests::userSignInRequest() ||
         $request == Requests::userDataRequest() ||
         $request == Requests::userSave() ||
         $request == Requests::userSignOutRequest() ||
         $request == Requests::reportCreationRequest()) {
+    $isUser = verify();
+} else if ($request == Requests::userCreationRequest()) {
     $isUser = true;
-
-    //check if users already exist 
-} else if (1 == 0) {
-    //not currently implemented
-    $isAdmin = true;
+} else {
+    $isAdmin = verify();
 }
 // provide information/allow service access once verified with a valid request
 if (in_array($request, Requests::getRequests())) {
@@ -95,7 +87,9 @@ if (in_array($request, Requests::getRequests())) {
             case Requests::reportCreationRequest():
             case Requests::reportReadAll():
             case Requests::reportRequest():
-                if ($isAdmin || $isUser) {
+                if ($isAdmin || ($isUser &&
+                        $request === Requests::reportCreationRequest()) ||
+                        ($isUser && $request === Requests::reportRequest())) {
                     $controller = new ReportController();
                     $report = new Report();
 
@@ -163,4 +157,30 @@ if (in_array($request, Requests::getRequests())) {
 } else {
     echo json_encode(FailOrPass::getFailureArray());
 }
-       
+
+/**
+ * This function determines whether a user or adimin exists.
+ * @return bool
+ */
+function verify() {
+
+// user 
+    if ($_POST['userEmail'] ?? '' !== '') {
+        $user = new User();
+        $user->setRequest(Requests::userSignInRequest());
+        $userController = new UserController();
+        $user->setEmail($_POST['userEmail'] ?? '');
+        $user->setPassword($_POST['userPassword'] ?? '');
+        $userResult = $userController->invokeUser($user);
+        return $userResult['status'] === FailOrPass::getSuccess();
+    } else {
+// admin
+        $admin = new Admin();
+        $admin->setRequest(Requests::adminSignInRequest());
+        $adminController = new AdminController();
+        $admin->setEmail($_POST['adminEmail'] ?? '');
+        $admin->setPassword($_POST['adminPassword'] ?? '');
+        $adminResult = $adminController->invokeAdmin($admin);
+        return $adminResult['status'] === FailOrPass::getSuccess();
+    }
+}

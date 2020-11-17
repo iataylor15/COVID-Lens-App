@@ -80,7 +80,7 @@ class UserDataTests: XCTestCase {
         user.setBasicID(basicID: TEST_BASIC_ID)
         _ = connection.save(user: user)
         let actual = connection.getResponse() as? [String:String] ?? [:]
-        let expected = ["status": "FAILED", "data": ""]
+        let expected = ["status": "FAILED", "data": "Random update "+UUID().uuidString]
         XCTAssert(actual == expected)
     }
     
