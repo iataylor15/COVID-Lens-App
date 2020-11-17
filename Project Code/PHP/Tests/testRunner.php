@@ -8,47 +8,48 @@ require 'ReportTest.php';
 require 'ResourcesTest.php';
 require 'UserTest.php';
 
-//Admin Tests
-$tester1 = new AdminTest();
-$tester1->testAdminCreation();
-$tester1->testAdminSignInRequest();
-$tester1->testAdminSignOutRequest();
-$tester1->testAdminDeletion();
-//--------------------------------------
-//Alert Tests
-$tester2 = new AlertTest();
-$tester2->testAlertCreation();
-$tester2->testAlertUpdate();
-$tester2->testAlertRead();
-$tester2->testAlertDeletion();
-//-------------------------------------
-////MapLocations Tests
-$tester3 = new MapLocationsTest();
-$tester3->testMapLocationsCreation();
-$tester3->testMapLocationsUpdate();
-$tester3->testMapLocationsRead();
-$tester3->testMapLocationsDeletion();
-//--------------------------------------
-//Report Tests
-$tester4 = new ReportTest();
-$tester4->testReportCreation();
-$tester4->testReportUpdate();
-$tester4->testReportRead();
-//--------------------------------------
-//Resources Tests
-$tester5 = new ResourcesTest();
-$tester5->testResourcesCreation();
-$tester5->testResourcesUpdate();
-$tester5->testResourcesRead();
-$tester5->testResourcesDeletion();
-//--------------------------------------
-//User Tests
-$tester6 = new UserTest();
-$tester6->testUserCreation();
-$tester6->testUserSignInRequest();
-$tester6->testUserSignOutRequest();
-$tester6->testUserDeletion();
-//---------------------------------------
+  //Admin Tests
+/*
+  $tester1 = new AdminTest();
+  $tester1->testAdminCreation();
+  $tester1->testAdminSignInRequest();
+  $tester1->testAdminSignOutRequest();
+  $tester1->testAdminDeletion();
+  //--------------------------------------
+  //Alert Tests
+  $tester2 = new AlertTest();
+  $tester2->testAlertCreation();
+  $tester2->testAlertUpdate();
+  $tester2->testAlertRead();
+  $tester2->testAlertDeletion();
+  //-------------------------------------
+  ////MapLocations Tests
+  $tester3 = new MapLocationsTest();
+  $tester3->testMapLocationsCreation();
+  $tester3->testMapLocationsUpdate();
+  $tester3->testMapLocationsRead();
+  $tester3->testMapLocationsDeletion();
+  //--------------------------------------*/
+  //Report Tests
+  //$tester4 = new ReportTest();
+  //$tester4->testReportCreation();
+  //$tester4->testReportUpdate();
+  //$tester4->testReportRead();
+  //--------------------------------------
+  //Resources Tests
+  /*$tester5 = new ResourcesTest();
+  $tester5->testResourcesCreation();
+  $tester5->testResourcesUpdate();
+  $tester5->testResourcesRead();
+  $tester5->testResourcesDeletion();
+  //--------------------------------------
+  //User Tests
+  $tester6 = new UserTest();
+  $tester6->testUserCreation();
+  $tester6->testUserSignInRequest();
+  $tester6->testUserSignOutRequest();
+  $tester6->testUserDeletion();
+  //--------------------------------------- 
 //PythonScriptCallerAPI Tests
 $tester7 = new PythonScriptCallerTest();
 // mocking some ID's
@@ -94,6 +95,17 @@ $testData = array("Report" => array(array("timeStamp" => "2020-10-12", "userID" 
 $expected = array("Students" => 2, "Faculty" => 1, "Staff" => 1, "Contractors" => 0, "Total" => 4,
     "map_data" => array(array("locationID" => "...", "residenceHall" => "Jefferson Suites", "caseCount" => 2,
             "latitude" => "...", "longitude" => "..."),
-        array("Mendenhall Residence Hall" => 0))); //... all other locations
+        array("Mendenhall Residence Hall" => 0)));
+//
+//$ctrl = new ReportController();
+//$reportData = new Report();
+//$reportData->setRequest(Requests::reportReadAll());
+//$response = FailOrPass::getFailureArray();
+//// ACTUAL DATA FROM DATABASE 
+//$response = $ctrl->invokeReport($reportData)['data'];
+//$tester7->testScript("/Applications/XAMPP/xamppfiles/htdocs/COVID-Lens-App/Project\ Code/PHP/API/test.py", $response, $expected, "PythonScriptCallerAPI Data Analysis test");
+// 
 
-//$tester7->testScript("script name here...", $testData, $expected, "PythonScriptCallerAPI Data Analysis test");
+// VS TEST DATA
+$tester7->testScript($testData, $expected, "PythonScriptCallerAPI Data Analysis test");
+*/

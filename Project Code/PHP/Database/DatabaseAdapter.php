@@ -1,6 +1,6 @@
 <?php
 
-require_once '../includes/autoload.php';
+//require_once '../includes/autoload.php';
 
 /**
  * Description of DatabaseAdapter
@@ -137,11 +137,11 @@ class DatabaseAdapter implements DatabaseAdapterInterface {
 //                    $stmt->bind_param("ss", $email, $password);
 //                    $userEmail = $object->getEmail();
 //                    $userPassword = $object->getPassword();
+                    return FailOrPass::getFailureArray();
                 } else if ($object->getRequest() === Requests::reportRequest()) {
                     $stmt->bind_param("ss", $submitterID, $reportID);
                     $submitterID = $object->getSubmitterID();
                     $reportID = $object->getReportID();
-                    echo $object->getSql();
                 } else if ($object->getRequest() === Requests::resourceRequest()) {
                     $stmt->bind_param("s", $resourceID);
                     $resourceID = $object->getResourceID();

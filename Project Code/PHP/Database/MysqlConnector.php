@@ -7,10 +7,10 @@
  */
 class MysqlConnector {
 
-    const SERVERNAME = "localhost";
-    const USERNAME = "root";
+    const SERVERNAME = "";
+    const USERNAME = "";
     const PASSWORD = "";
-    const DBNAME = "covid_lens";
+    const DBNAME = "";
 
     private $connection;
 
