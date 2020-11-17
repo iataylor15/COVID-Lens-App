@@ -10,7 +10,7 @@ import SwiftUI
 struct SignupView: View {
     @Environment(\.presentationMode) var presentationMode:Binding<PresentationMode>
     @StateObject private var viewModel = SignupVM()
-    @StateObject var user: User?
+    //@StateObject var user: User?
     @State var userData: UserData?
     
     var title: some View {

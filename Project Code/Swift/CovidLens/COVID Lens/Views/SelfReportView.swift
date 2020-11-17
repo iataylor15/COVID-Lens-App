@@ -191,7 +191,7 @@ struct SelfReportView: View {
                 case .tooSoon:
                     return Alert(
                         title: Text("Report Not Submitted"),
-                        message: Text("Reports can only be submitted every 14 days"),
+                        message: Text("You can only sumbit a report once every 14 days"),
                         dismissButton: .default(Text("OK"))
                     )
                 }
