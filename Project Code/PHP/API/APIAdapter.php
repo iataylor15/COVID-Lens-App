@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/autoload.php';
+//require_once '../includes/autoload.php';
 
 /**
  * Description of APIAdapter
@@ -16,7 +16,7 @@ class APIAdapter implements APIAdapterInterface {
      */
     public function getStats($data) {
         $analyzer = new PythonScriptCallerAPI();
-        return $analyzer->getStats("some python script file", $data);
+        return $analyzer->getStats($data);
     }
 
 }
