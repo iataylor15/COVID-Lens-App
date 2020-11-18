@@ -11,9 +11,9 @@
   <a href="https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals">Motivation and Goals</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#project-team">Project Team</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#features">Features</a> |
-  <a href="https://github.com/iataylor15/COVID-Lens-App#screenshots">Screenshots</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#architecture">Architecture</a> |
-    <a href="https://github.com/iataylor15/COVID-Lens-App#project-installation-steps">Installation</a>
+  <a href="https://github.com/iataylor15/COVID-Lens-App#screenshots">Screenshots</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#project-installation-steps">Installation</a>
   <br><br>
 </p>
 
@@ -34,7 +34,7 @@
 - [**Isaac Taylor**](https://github.com/iataylor15)
 
 
-#### Features
+## Features
 - [x] [Interactive COVID-19 Case Map]()
 - [x] [Self Report Form]()
 - [x] [Statisic Summary Table]()
