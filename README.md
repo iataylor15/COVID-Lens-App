@@ -8,12 +8,13 @@
 <h3 align="center">COVID Lens - A viable countermeasure to the current safety and social threats posed by COVID-19. </h3> <p>
 
 <p align="center">
-  <b>Some Links:</b><br>
-  <a href="#">Link 1</a> |
-  <a href="#">Link 2</a> |
-  <a href="#">Link 3</a>
+  <a href="https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals">Motivation and Goals</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#project-team">Project Team</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#features">Features</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#screenshots">Screenshots</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#architecture">Architecture</a> |
+    <a href="https://github.com/iataylor15/COVID-Lens-App#project-installation-steps">Installation</a>
   <br><br>
-  <img src="http://s.4cdn.org/image/title/105.gif">
 </p>
 
 [Motivation and Goals](https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals) | [Project Team](https://github.com/iataylor15/COVID-Lens-App#project-team) | [Feautures](https://github.com/iataylor15/COVID-Lens-App#features) |
