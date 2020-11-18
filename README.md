@@ -7,23 +7,21 @@
 
 <h3 align="center">COVID Lens - A viable countermeasure to the current safety and social threats posed by COVID-19. </h3> <p>
 
-<p align="center">
+<h5 align="center">
   <a href="https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals">Motivation and Goals</a> |
-  <a href="https://github.com/iataylor15/COVID-Lens-App#project-team">Project Team</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#project-team-members">Team Members</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#features">Features</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#architecture">Architecture</a> |
-  <a href="https://github.com/iataylor15/COVID-Lens-App#screenshots">Screenshots</a> |
+  <a href="https://github.com/iataylor15/COVID-Lens-App#user-interface">Interface</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#project-installation-steps">Installation</a>
-  <br><br>
-</p>
+</h5>
 
-<p align="center"> Senior Capstone Project 🎓 </p>
-<br>
+<h5 align="center"> UNCG 2020 Senior Capstone Project 🎓 </h5>
 
 ## Motivation and Goals
  The global COVID-19 pandemic was declared on March 11, 2020 by the World Health Organization and, as the new year is slowly approaching, the virus shows no apparent signs of disappearing soon. This suggests a necessity of new data-driven tools and methods to help society work around and cope with COVID-19 while promoting safety. The main goal of COVID Lens is to provide a novel COVID-19 tracking and public awareness system that will inform and protect members of the UNCG community from the COVID-19 virus.
 
-## Project Team
+## Project Team Members
 - [**Seth Goodwin**](https://github.com/SethGoodwin)
 - [**Tammy Ogunkale**](https://github.com/tammycodes)
 - [**Reagan Berhe**](https://github.com/reaganlu22)
@@ -32,12 +30,12 @@
 
 
 ## Features
-- [x] [Interactive COVID-19 Case Map]()
-- [x] [Self Report Form]()
-- [x] [Statisic Summary Table]()
-- [x] [Helpful Resources List]()
-- [ ] [Admin Backend]()
-- [ ] [Contact Tracing]()
+- [x] **Interactive COVID-19 Case Map**
+- [x] **Self Report Form**
+- [x] **Statisic Summary Table**
+- [x] **Helpful Resources List**
+- [ ] **Admin Backend**
+- [ ] **Contact Tracing**
 
 
 ## Architecture
@@ -48,7 +46,7 @@
    <img src="https://user-images.githubusercontent.com/32807934/94518395-d65e8280-01f7-11eb-9bdf-f39db702939d.png">
  </a>
     
-## Screenshots
+## User Interface
  <p align="center">
  <a href="#">
    <img src="https://user-images.githubusercontent.com/47482644/99500158-f08b2600-2947-11eb-801f-60991dc6d14b.png">
