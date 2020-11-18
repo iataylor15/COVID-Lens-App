@@ -13,6 +13,7 @@ struct SettingsView: View {
     @EnvironmentObject private var userLoginState: AuthVM
     @StateObject private var viewModel = SettingsVM()
     
+    
     struct SettingsButton: View {
         var iconName: String
         var text: String
@@ -42,7 +43,7 @@ struct SettingsView: View {
                     VStack {
                         // profile picture
                         Image("profile")
-                            .resizable()
+                            .data(url: URL(string: viewModel.picURL)!)
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 150, height: 150, alignment: .center)
                             .clipShape(Circle())
@@ -121,5 +122,16 @@ struct SettingsView: View {
             }.background(Color.white.ignoresSafeArea(.all, edges: .all))
             .navigationBarTitle("Settings", displayMode: .inline)
         }
+    }
+}
+
+extension Image {
+    func data(url:URL) -> Self {
+        if let data = try? Data(contentsOf: url) {
+            return Image(uiImage: UIImage(data: data)!)
+                .resizable()
+        }
+        return self
+            .resizable()
     }
 }

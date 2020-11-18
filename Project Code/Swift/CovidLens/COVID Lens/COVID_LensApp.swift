@@ -14,7 +14,6 @@ import GooglePlaces
 @available(iOS 14.0, *)
 @main
 struct COVID_LensApp: App {
-    static var no = notify()
     @StateObject var userLoginState = AuthVM()
     
     // attach App Delegate to SwiftUI
@@ -49,6 +48,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, Observabl
     
     //apikey
     var apiKey = "AIzaSyBaBhLg6ULvTIXOsXZ7sU9GBQ1flu7H9O0"
+    //var apiKey = // Your api key here
     // [START didfinishlaunching]
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -60,6 +60,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, GIDSignInDelegate, Observabl
         
         // seth client id
         GIDSignIn.sharedInstance().clientID = "179846355573-6ikclf9armsnfd1eajs50t7hnqnv39r6.apps.googleusercontent.com"
+        // GIDSignIn.sharedInstance().clientID = your google client i
         
         GMSServices.provideAPIKey(apiKey)
         GMSPlacesClient.provideAPIKey(apiKey)
