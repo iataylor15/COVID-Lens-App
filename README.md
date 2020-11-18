@@ -17,9 +17,6 @@
   <br><br>
 </p>
 
-[Motivation and Goals](https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals) | [Project Team](https://github.com/iataylor15/COVID-Lens-App#project-team) | [Feautures](https://github.com/iataylor15/COVID-Lens-App#features) |
-[Screenshots](https://github.com/iataylor15/COVID-Lens-App#screenshots) | [Architecture](https://github.com/iataylor15/COVID-Lens-App#architecture) | [Installation](https://github.com/iataylor15/COVID-Lens-App#project-installation-steps) 
-    
 <p align="center"> Senior Capstone Project 🎓 </p>
 <br>
 
