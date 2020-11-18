@@ -59,6 +59,7 @@ class UserDataTests: XCTestCase {
         This function tests to see if an existing user can be loaded.
      */
     func testLoadUser() throws {
+<<<<<<< HEAD
         //var user = User()
         //user.setEmail(email: "testUser5f9e7b24a5136@covidlens.com")
         //user.setPassword(password: "12345ABC!")
@@ -66,6 +67,32 @@ class UserDataTests: XCTestCase {
         let actual = connection.getResponse()
         let expected = ["data": ["userData": "some user data", "id": "123"], "status": "SUCCESS"] as [String : Any]
         XCTAssert(actual["status"] as! String == expected["status"] as! String)
+=======
+        var user = User()
+        user.setName(name: TEST_NAME)
+        user.setEmail(email: TEST_EMAIL)
+        user.setPassword(password: TEST_PASSWORD)
+        user.setBasicID(basicID: TEST_BASIC_ID)
+        _ = connection.loadUser(user: user)
+        let actual = connection.getResponse() as? [String:String] ?? [:]
+        let expected = ["status": "FAILED", "data": ""]
+        XCTAssert(actual == expected)
+    }
+    
+    /**
+        This function tests to see if a users profile can be saved.
+     */
+    func testSave() throws {
+        var user = User()
+        user.setName(name: TEST_NAME)
+        user.setEmail(email: TEST_EMAIL)
+        user.setPassword(password: TEST_PASSWORD)
+        user.setBasicID(basicID: TEST_BASIC_ID)
+        _ = connection.save(user: user)
+        let actual = connection.getResponse() as? [String:String] ?? [:]
+        let expected = ["status": "FAILED", "data": "Random update "+UUID().uuidString]
+        XCTAssert(actual == expected)
+>>>>>>> 5df89cf136cc25ceac546cd025baea6e4078e0e2
     }
 //
 //    /**

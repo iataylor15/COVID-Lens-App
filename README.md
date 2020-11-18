@@ -7,8 +7,8 @@
 
 <h3 align="center">COVID Lens - A viable countermeasure to the current safety and social threats posed by COVID-19. </h3> <p>
 
-[Motivation and Goals](https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals) | [Project Team](https://github.com/iataylor15/COVID-Lens-App#project-team) | [Stages](https://github.com/iataylor15/COVID-Lens-App#stages) | [Feautures](https://github.com/iataylor15/COVID-Lens-App#features) | [Architecture](https://github.com/iataylor15/COVID-Lens-App#architecture) | [Installation](https://github.com/iataylor15/COVID-Lens-App#installation) | [Documentation](https://github.com/iataylor15/COVID-Lens-App/tree/master/Documentation)
------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
+[Motivation and Goals](https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals) | [Project Team](https://github.com/iataylor15/COVID-Lens-App#project-team) | [Feautures](https://github.com/iataylor15/COVID-Lens-App#features) | [Architecture](https://github.com/iataylor15/COVID-Lens-App#architecture) | [Installation](https://github.com/iataylor15/COVID-Lens-App#installation) | [Documentation](https://github.com/iataylor15/COVID-Lens-App/tree/master/Documentation)
+------------ | ------------- | ------------- | ------------- | ------------- | ------------- 
 
 <p align="center"> Senior Capstone Project 🎓 </p>
 <br>
@@ -23,30 +23,12 @@
 - [**Mark He**](https://github.com/mhe98)
 - [**Isaac Taylor**](https://github.com/iataylor15)
 
-## Stages & Features Checklist
-
-
-#### Stages
-- [x] [Approach and System profile]()
-- [x] [Feasibility and Draft models]()
-- [x] [Detailed Design and Controls]()
-- [x] [Amended models]()
-- [x] [Systems/Algorithm Analysis report with data & process models]()
-- [x] [Data Dictionary]()
-- [ ] [Plan and Testing]()
-- [ ] [Training plan]()
-- [ ] [Preliminary demonstration]()
-- [ ] [Final presentation]()
-- [ ] [Source code and User Manual]()
-- [ ] [Technical report]()
-- [ ] [Evaluation by Clients, Poster Presentation (TBA)]()
-- [ ] [Final Report]()
 
 #### Features
 - [x] [Interactive COVID-19 Case Map]()
-- [ ] [Self Report Form]()
-- [ ] [Statisic Summary Table]()
-- [ ] [Helpful Resources List]()
+- [x] [Self Report Form]()
+- [x] [Statisic Summary Table]()
+- [x] [Helpful Resources List]()
 - [ ] [Admin Backend]()
 - [ ] [Contact Tracing]()
 
@@ -57,6 +39,12 @@
  <p align="center">
  <a href="#">
    <img src="https://user-images.githubusercontent.com/32807934/94518395-d65e8280-01f7-11eb-9bdf-f39db702939d.png">
+ </a>
+    
+## Screenshots
+ <p align="center">
+ <a href="#">
+   <img src="https://user-images.githubusercontent.com/47482644/99500158-f08b2600-2947-11eb-801f-60991dc6d14b.png">
  </a>
 
 ## Installation  
