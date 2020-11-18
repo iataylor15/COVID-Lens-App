@@ -26,9 +26,9 @@
 
 #### Features
 - [x] [Interactive COVID-19 Case Map]()
-- [ ] [Self Report Form]()
-- [ ] [Statisic Summary Table]()
-- [ ] [Helpful Resources List]()
+- [x] [Self Report Form]()
+- [x] [Statisic Summary Table]()
+- [x] [Helpful Resources List]()
 - [ ] [Admin Backend]()
 - [ ] [Contact Tracing]()
 
