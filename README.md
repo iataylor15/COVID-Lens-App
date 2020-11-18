@@ -7,14 +7,14 @@
 
 <h3 align="center">COVID Lens - A viable countermeasure to the current safety and social threats posed by COVID-19. </h3> <p>
 
-<h5 align="center">
+<h4 align="center">
   <a href="https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals">Motivation and Goals</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#project-team-members">Team Members</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#features">Features</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#architecture">Architecture</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#user-interface">Interface</a> |
   <a href="https://github.com/iataylor15/COVID-Lens-App#project-installation-steps">Installation</a>
-</h5>
+</h4>
 
 <h5 align="center"> UNCG 2020 Senior Capstone Project 🎓 </h5>
 
