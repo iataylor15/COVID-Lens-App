@@ -9,7 +9,7 @@ class MysqlConnector {
 
     const SERVERNAME = ""; // your server name here
     const USERNAME = ""; // your username here
-    const PASSWORD = ""; // your passwrod here
+    const PASSWORD = ""; // your password here
     const DBNAME = ""; // your database name here
 
     private $connection;
