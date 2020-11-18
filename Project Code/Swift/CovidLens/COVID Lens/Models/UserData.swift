@@ -39,14 +39,15 @@ class UserData {
                 var attempt = 5
                 repeat {
                     var parameters = [String: Any]()
-                    var userID = uuid
+                    let userID = uuid
                     var userWithID = newUser
                     //giving a new user an id
                     userWithID.setBasicID(basicID: userID)
                     parameters["request"] = USER_CREATION
                     do {
                         parameters["userData"] = String(data: try JSONEncoder().encode(userWithID), encoding: .utf8)
-                    } catch  {
+                        //parameters["userData"] = "some data"
+                    } catch {
                         // probably should handle this better...
                         parameters["userData"] = ""
                     }
@@ -59,7 +60,6 @@ class UserData {
                         parameters["userPassword"] = userWithID.getPassword()
                     }
                     parameters["userPassword"] = userWithID.getPassword()
-                    userID = createUUID()
                     parameters["userID"] = userID
                     parameters["googleID"] = userWithID.getGoogleID()
                     parameters["signedIn"] = true
@@ -94,7 +94,7 @@ class UserData {
             // probably should handle this better...
             parameters["userData"] = ""
         }
-        parameters["signedIn"] = user.getLoggedIn()
+        parameters["signedIn"] = user.getLoggedIn() //false
         // not signed in
         if UserDefaults.standard.bool(forKey: UserData.SIGNED_IN) == false {
             parameters["email"] = user.getEmail()
@@ -102,14 +102,26 @@ class UserData {
             parameters["userID"] = user.getBasicId()
             parameters["googleID"] = user.getGoogleID()
             
+            // check if user credentials found in database
             postData(parameters: parameters, postUrl: REQUEST_CATCHER_URL)
 
             // waiting for response from server
             submissionSemaphore.wait()
 
             if dataResponse != nil && dataResponse!["status"] as? String == "SUCCESS" {
-              //store credentials
-                return storeCredentials(user: user)
+                //store credentials
+                let str = (dataResponse["data"] as! String).base64Decoded
+                let data = Data(str!.utf8)
+
+                do {
+                    // make sure this JSON is in the format we expect
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        dataResponse["data"] = json
+                        return storeCredentials(user: user)
+                    }
+                } catch let error as NSError {
+                    print("Failed to load: \(error.localizedDescription)")
+                }
             }
         }else{
             // retrieve credentials from keychain
@@ -236,6 +248,7 @@ class UserData {
             postData(parameters: parameters, postUrl: REQUEST_CATCHER_URL)
             submissionSemaphore.wait()
         } else {
+            print("in else")
             parameters["request"] = USER_DATA_REQUEST
             do {
                 parameters["userData"] = String(data: try JSONEncoder().encode(user), encoding: .utf8)
@@ -243,6 +256,7 @@ class UserData {
                 // probably should handle this better...
                 parameters["userData"] = ""
             }
+            print("setting post values")
             parameters["email"] = user?.getEmail()
             parameters["password"] = user?.getPassword()
             parameters["userID"] = user?.getBasicId()
@@ -252,9 +266,11 @@ class UserData {
             // waiting for response from server
             submissionSemaphore.wait()
         }
-        if dataResponse != nil, dataResponse!["status"] as? String == "SUCCESS" {
+        //dataResponse = ["status": "SUCCESS", "data": ""]
+        if dataResponse != nil && dataResponse!["status"] as? String == "SUCCESS" {
             // do something
-                return true
+            print("success")
+            return true
 
         }
         return false
@@ -335,6 +351,7 @@ class UserData {
         request.httpBody = parameters.percentEncoded()
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
             guard let data = data,
                   let response = response as? HTTPURLResponse,
                   error == nil else { // check for fundamental networking error
@@ -355,7 +372,6 @@ class UserData {
                 self.submissionSemaphore.signal()
             }
         }
-
         task.resume()
     }
     //
@@ -407,4 +423,11 @@ extension CharacterSet {
         allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
         return allowed
     }()
+}
+
+public extension String {
+    var base64Decoded: String? {
+        guard let decodedData = Data(base64Encoded: self) else { return nil }
+        return String(data: decodedData, encoding: .utf8)
+    }
 }

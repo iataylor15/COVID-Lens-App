@@ -11,16 +11,10 @@ class AuthVM: ObservableObject {
     @Published var isLoggedIn: Bool = false
     
     func login() {
-        //notify.shared.isLoggedIn.wait()
         isLoggedIn.toggle()
     }
     
     func logOut() {
         isLoggedIn.toggle()
     }
-}
-
-class notify: NSObject {
-    var isLoggedIn = DispatchSemaphore(value: 0)
-    static var shared = notify()
 }
