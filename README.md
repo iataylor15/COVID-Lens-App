@@ -40,6 +40,12 @@
  <a href="#">
    <img src="https://user-images.githubusercontent.com/32807934/94518395-d65e8280-01f7-11eb-9bdf-f39db702939d.png">
  </a>
+    
+## Screenshots
+ <p align="center">
+ <a href="#">
+   <img src="https://user-images.githubusercontent.com/47482644/99500158-f08b2600-2947-11eb-801f-60991dc6d14b.png">
+ </a>
 
 ## Installation  
 
