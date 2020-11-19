@@ -1,11 +1,12 @@
 <!-- PROJECT LOGO -->
-<br />
 <p align="center">
 <a href="#">
     <img src="https://user-images.githubusercontent.com/32807934/94518504-0c9c0200-01f8-11eb-8883-667876b9d639.png">
 </a>
 
-<h3 align="center">COVID Lens - A viable countermeasure to the current safety and social threats posed by COVID-19. </h3> <p>
+<h1 align="center"> COVID Lens</h1>
+
+<h3 align="center">- A viable countermeasure to the current safety and social threats posed by COVID-19 -</h3> 
 
 <h5 align="center">
   <a href="https://github.com/iataylor15/COVID-Lens-App#motivation-and-goals">Motivation and Goals</a> |
@@ -37,16 +38,15 @@
 - [ ] **Admin Backend**
 - [ ] **Contact Tracing**
 
-
 ## Architecture
  <!-- Architecture -->
- <br />
  <p align="center">
  <a href="#">
    <img src="https://user-images.githubusercontent.com/32807934/94518395-d65e8280-01f7-11eb-9bdf-f39db702939d.png">
  </a>
     
 ## User Interface
+<!-- User Interface -->
  <p align="center">
  <a href="#">
    <img src="https://user-images.githubusercontent.com/47482644/99500158-f08b2600-2947-11eb-801f-60991dc6d14b.png">
